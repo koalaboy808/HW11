@@ -5,6 +5,8 @@
 ###############################################################################
 # Imports  # there will only be one import added here.
 
+import os
+
 ###############################################################################
 # Write f01 that prints "Hello World!" and calls f02. (three lines)
 def f01():
@@ -82,34 +84,34 @@ def f06(string1, string2):
 
 
 
-#    various_solutions()  # Last line in f06()
-# ###############################################################################
-# # Write f07, f08, f09, f10 to find the sum of all the multiples of 3 or 5 
-# # below 500 (starting at 1)
-# # f07 should demonstrate a while loop, returning the sum
-# # f08 should demonstrate a for loop, returning the sum
-# # f09 should demonstrate list comprehension, returning the sum
-# # f10 should demonstrate recursion, returning the sum
-# # check_solution_vals() will call the functions and check solutions.
-# # only edit the parameters in the function calls (if you want to)
-# ###############################################################################
-# def various_solutions():
-#     """ This checks solutions. ONLY EDIT PARAMETERS PASSED TO FUNCTIONS. """
-#     while_ = f07()
-#     for_ = f08()
-#     list_comprehension = f09()
-#     recursion = f10()
-#     # DO NOT EDIT BELOW THIS LINE
-#     vals = [while_, for_, list_comprehension, recursion]
-#     for val in vals:
-#         print val
-#     if len(set(vals)) == 1:
-#         print("Not sure if it's right, but all your solutions agree!")
-#     else: print ("Oops...")
-#     f11_args = [1,"2", 3.0, '4', 5.0, 6]  # Last lines in various_solutions()
-#     for arg in f11_args:
-#         f11(arg)
-#     f12()
+    various_solutions()  # Last line in f06()
+###############################################################################
+# Write f07, f08, f09, f10 to find the sum of all the multiples of 3 or 5 
+# below 500 (starting at 1)
+# f07 should demonstrate a while loop, returning the sum
+# f08 should demonstrate a for loop, returning the sum
+# f09 should demonstrate list comprehension, returning the sum
+# f10 should demonstrate recursion, returning the sum
+# check_solution_vals() will call the functions and check solutions.
+# only edit the parameters in the function calls (if you want to)
+###############################################################################
+def various_solutions():
+    """ This checks solutions. ONLY EDIT PARAMETERS PASSED TO FUNCTIONS. """
+    while_ = f07()
+    for_ = f08()
+    list_comprehension = f09()
+    recursion = (f10(500))
+    # DO NOT EDIT BELOW THIS LINE
+    vals = [while_, for_, list_comprehension, recursion]
+    for val in vals:
+        print val
+    if len(set(vals)) == 1:
+        print("Not sure if it's right, but all your solutions agree!")
+    else: print ("Oops...")
+    f11_args = [1,"2", 3.0, '4', 5.0, 6]  # Last lines in various_solutions()
+    for arg in f11_args:
+        f11(arg)
+    f12()
 ###############################################################################
 def f07():
     count = 1
@@ -118,8 +120,8 @@ def f07():
         if (count % 3 == 0) or (count % 5 == 0):
             summed += count
         count += 1
-    print summed
-f07()
+    return summed
+
 
 ###############################################################################
 def f08():
@@ -128,132 +130,174 @@ def f08():
         if (count % 3 == 0) or (count % 5 == 0):
             summed += count
         count += 1
-    print summed
-
-f08()
+    return summed
 
 
 ###############################################################################
 def f09():
     summed = []
     [summed.append(count) for count in range(1,501) if ((count % 3 == 0) or (count % 5 == 0))]
-    print sum(summed)
+    return sum(summed)
 
-f09()
+
+###############################################################################
+def f10(n):
+    if n == 0:
+        return 0
+    elif ((n % 3 == 0) or (n % 5 == 0)):
+        summed = n + f10(n-1)
+    else:
+        return f10(n-1)
+    return summed
+
+
+
+###############################################################################
+# Write f11() to take arguments, printing them as floats if they started as
+# strings, integers if they started as floats, and as the value 0 if they
+# started as ints.
+def f11(args):
+    if isinstance(args, str):
+        outcome = float(args)
+    elif isinstance(args, float):
+        outcome = int(args)
+    else:
+        outcome = 0  
+    print outcome      
 
 
 
 
 ###############################################################################
-def f10(n):
-    pass
+# Write f12() to ask for raw_input from the user. Change the input to a float.
+# Create log_file.txt to log the input that cannot be changed to a float. 
+#   - write one faulty input per line
+# Print, as a list, all converted input.
+# Proceed to the last line, calling f13, when the user types done or "done"
+# Ex. log_file.txt
+#   TEST
+#   123abc
+#   python rules
+# Ex. printing
+#   [1.0, 1.3, 2.443]
+def f12():
+    user_input = raw_input("give me something good:\n")
+    non_integer = []
+    make_float = []
+
+    # for loop on characters that will test if char is integer and respond accordingly
+    for char in user_input:
+        try:
+            int(char)
+        except ValueError:
+            non_integer.append(char)
+        else:
+            make_float.append(float(char))
 
 
+    # write log file of all non-integers as a list
+    with open("log_file.txt", "w") as f_out:
+        f_out.write(str(non_integer))
+    # print out all integers as floats in list format
+    print make_float
 
 
+    f13()  # Last line in f12()
+###############################################################################
+# Fix the error in f13:
+def f13():
+    for each in "string":
+        print each
+    f14()  # Last line in f13()
 
-
-# ###############################################################################
-# # Write f11() to take arguments, printing them as floats if they started as
-# # strings, integers if they started as floats, and as the value 0 if they
-# # started as ints.
-# def f11(args):
+###############################################################################
+# Write f14 to print the path and filename of this script. DO NOT HARD CODE.
+# You must add an import statement. Please do so at the top of the file.
+# Ex. /Users/dsg/Desktop/python-boot-camp/HW11/diagnostic.py
+def f14():
+    print(os.path.abspath("diagnostic.py"))
     
 
 
 
 
-# ###############################################################################
-# # Write f12() to ask for raw_input from the user. Change the input to a float.
-# # Create log_file.txt to log the input that cannot be changed to a float. 
-# #   - write one faulty input per line
-# # Print, as a list, all converted input.
-# # Proceed to the last line, calling f13, when the user types done or "done"
-# # Ex. log_file.txt
-# #   TEST
-# #   123abc
-# #   python rules
-# # Ex. printing
-# #   [1.0, 1.3, 2.443]
-# def f12():
+    f15()  # Last line in f14()
+###############################################################################
+# Write f15 to print the goal below. Do not print any strings.
+# Do not take more than nine lines to code.
+# Goal:
+# [[0], [], [], [], [], [], [], [], [], []]
+# [[], [0], [], [], [], [], [], [], [], []]
+# [[], [], [0], [], [], [], [], [], [], []]
+# [[], [], [], [0], [], [], [], [], [], []]
+# [[], [], [], [], [0], [], [], [], [], []]
+# [[], [], [], [], [], [0], [], [], [], []]
+# [[], [], [], [], [], [], [0], [], [], []]
+# [[], [], [], [], [], [], [], [0], [], []]
+# [[], [], [], [], [], [], [], [], [0], []]
+# [[], [], [], [], [], [], [], [], [], [0]]
+def f15():
+    n = 0
+    for i in range(10):
+        temp = []
+        for i in range(10):
+            if i == n:
+                temp.append([0])
+            else:
+                temp.append([])
+        n += 1
+        print temp
+
+
+    f16([1,2,3],[4,5,6])  # Last line in f15()
+###############################################################################
+# Write f16() that takes two lists and prints a list with the nth elements of 
+# each list sharing a tuple.
+# Ex.
+# [1,2,3] and [4,5,6] would produce [(1, 4), (2, 5), (3, 6)]
+def f16(list1, list2):
+    print zip(list1, list2)
+
+
+    f17()  # Last line in f16()
+###############################################################################
+# Write f17() to take the 2nd line from few_words.txt, and print a list
+# with the index of the word in that line and the word, sharing tuples.
+# Ex. [(0, 'To'), (1, 'be'), (2, 'or'), (3, 'not'), (4, 'to'), (5, 'be')]
+def f17():
+    with open("few_words.txt") as f_in:
+        # get second line
+        for index, value in enumerate(f_in):
+            if index == 1:
+                get_second = value
+
+        # split second line into a list
+        f_in_list = get_second.split()
+
+        # create list of tuples on index and value of f_in_list
+        f_in_tuple = []
+        [f_in_tuple.append((index,value)) for index, value in enumerate(f_in_list)]
+    print f_in_tuple    
+        #print f_in_tuple
     
 
 
-
-
-
-#     f13()  # Last line in f12()
-# ###############################################################################
-# # Fix the error in f13:
-# def f13():
-#     for each in "string"
-#         print each
-#     f14()  # Last line in f13()
-# ###############################################################################
-# # Write f14 to print the path and filename of this script. DO NOT HARD CODE.
-# # You must add an import statement. Please do so at the top of the file.
-# # Ex. /Users/dsg/Desktop/python-boot-camp/HW11/diagnostic.py
-# def f14():
-    
-
-
-
-
-#     f15()  # Last line in f14()
-# ###############################################################################
-# # Write f15 to print the goal below. Do not print any strings.
-# # Do not take more than nine lines to code.
-# # Goal:
-# # [[0], [], [], [], [], [], [], [], [], []]
-# # [[], [0], [], [], [], [], [], [], [], []]
-# # [[], [], [0], [], [], [], [], [], [], []]
-# # [[], [], [], [0], [], [], [], [], [], []]
-# # [[], [], [], [], [0], [], [], [], [], []]
-# # [[], [], [], [], [], [0], [], [], [], []]
-# # [[], [], [], [], [], [], [0], [], [], []]
-# # [[], [], [], [], [], [], [], [0], [], []]
-# # [[], [], [], [], [], [], [], [], [0], []]
-# # [[], [], [], [], [], [], [], [], [], [0]]
-# def f15():
-
-
-
-
-
-
-#     f16([1,2,3],[4,5,6])  # Last line in f15()
-# ###############################################################################
-# # Write f16() that takes two lists and prints a list with the nth elements of 
-# # each list sharing a tuple.
-# # Ex.
-# # [1,2,3] and [4,5,6] would produce [(1, 4), (2, 5), (3, 6)]
-# def f16(list1, list2):
-    
-
-
-
-
-
-#     f17()  # Last line in f16()
-# ###############################################################################
-# # Write f17() to take the 2nd line from few_words.txt, and print a list
-# # with the index of the word in that line and the word, sharing tuples.
-# # Ex. [(0, 'To'), (1, 'be'), (2, 'or'), (3, 'not'), (4, 'to'), (5, 'be')]
-# def f17():
-    
-
-
-
-
-#     # Be sure to save the list that you print to list_
-#     list_ =  list()  # Change to your list 
-#     f18(list_)  # Last line in f17()
-# # Write f18 to take the list above and create a dictionary, use the words as
-# # keys and the numbers as values.
-# # Print the dictionary.
-# # Call the dictionary in f19()
-# def f18(list_):
-
+    # Be sure to save the list that you print to list_
+    list_ =  f_in_tuple  # Change to your list 
+    f18(list_)  # Last line in f17()
+# Write f18 to take the list above and create a dictionary, use the words as
+# keys and the numbers as values.
+# Print the dictionary.
+# Call the dictionary in f19()
+def f18(list_):
+    convert_dict = {}
+    for index, value in enumerate(list_):
+        convert_dict[index] = value[1]
+        #convert_dict[value].setdefault(index,0)
+    # for index, value in convert_dict.items():
+    #     convert_dict[value] = index
+    #print sorted(convert_dict.items(), key=lambda x: x[1])
+    print convert_dict
 
 
 
@@ -330,7 +374,7 @@ def f10(n):
 
 # Write main() that calls f01, then prints the The Zen of Python, by Tim Peters.
 # (three lines)
-def main(): pass #f01()
+def main(): f01()
 if __name__ == '__main__':
     main()
 
